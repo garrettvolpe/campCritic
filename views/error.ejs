@@ -1,0 +1,26 @@
+<% layout('layouts/boilerplate')%>
+<div class="row">
+    <div class="col-6 offset-3">
+        <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading"><%= err.message  %></h4>
+        <div id="error-message"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+    function funnyErrorAnimation() {
+  // Display a cartoon character with a puzzled expression
+  document.getElementById("error-message").innerHTML = "😕";
+
+  // Animate the character by making it shake its head back and forth
+  setInterval(function() {
+    document.getElementById("error-message").innerHTML = "🙄";
+    setTimeout(function() {
+      document.getElementById("error-message").innerHTML = "😕";
+    }, 250);
+  }, 500);
+}
+funnyErrorAnimation()
+</script>

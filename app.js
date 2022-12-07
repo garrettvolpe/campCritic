@@ -77,7 +77,8 @@ app.all('*', (req,res,next) => {
 
 app.use((err, req, res, next) => {
     const {statusCode = 500 , message = "test message"} = err
-    res.status(statusCode).send(message)
+    if(!err.message) err.message = "Oh no! Something went wrong";
+    res.status(statusCode).render('error.ejs', {err})
     res.send("oh boy, something went wrong")
 })
 
