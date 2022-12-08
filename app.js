@@ -6,6 +6,8 @@ const methodOverride = require('method-override');
 const Campground = require('./models/campground');
 const ExpressError = require('./utils/ExpressError')
 const catchAsync = require('./utils/catchAsync')
+const Joi = require('joi');
+const { join } = require('path');
 
 
 mongoose.connect('mongodb+srv://garrett:WbPC3uL0rNRm0ltC@campgrounds.pcpwmwg.mongodb.net/campgrounds?retryWrites=true&w=majority', {
@@ -38,12 +40,27 @@ app.get('/campgrounds', catchAsync(async (req, res) => {
     res.render('campgrounds/index', { campgrounds })
 }))
 
-app.get('/campgrounds/new', catchAsync( async (req, res) => {
+app.get('/campgrounds/new', catchAsync(async (req, res) => {
     res.render('campgrounds/new')
 }))
 
 app.post('/campgrounds', catchAsync(async (req, res, next) => {
-    if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
+    // if (!req.body.campground) throw new ExpressError('Invalid Campground Data', 400);
+    const campgroundSchema = Joi.object({
+        campground: Joi.object({
+            title: Joi.string().required(),
+            location: Joi.string().required(),
+            image: Joi.string().required(),
+            price: Joi.number().required().min(0),
+            description: Joi.string().required(),
+        }).required()
+    })
+    const { error } = campgroundSchema.validate(req.body);
+    if (error) {
+        const msg = error.details.map(el => el.message).join(',');
+        throw new ExpressError(msg, 400)
+    }
+    console.log(result)
     const campground = new Campground(req.body.campground);
     await campground.save();
     res.redirect(`campgrounds/${campground._id}`);
@@ -54,31 +71,31 @@ app.get('/campgrounds/:id', catchAsync(async (req, res, next) => {
     res.render('campgrounds/show', { campground })
 }))
 
-app.get('/campgrounds/:id/edit',catchAsync(async (req, res) => {
+app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id)
     res.render('campgrounds/edit', { campground })
 }))
 
-app.put('/campgrounds/:id',catchAsync(async (req, res) => {
+app.put('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params
     const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground })
     res.redirect(`/campgrounds/${campground.id}`)
 }))
 
-app.delete('/campgrounds/:id',catchAsync( async (req, res) => {
+app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id)
     res.redirect('/campgrounds');
 }))
 
-app.all('*', (req,res,next) => {
+app.all('*', (req, res, next) => {
     next(new ExpressError("page not found!", 404))
 })
 
 app.use((err, req, res, next) => {
-    const {statusCode = 500 , message = "test message"} = err
-    if(!err.message) err.message = "Oh no! Something went wrong";
-    res.status(statusCode).render('error.ejs', {err})
+    const { statusCode = 500, message = "test message" } = err
+    if (!err.message) err.message = "Oh no! Something went wrong";
+    res.status(statusCode).render('error.ejs', { err })
     res.send("oh boy, something went wrong")
 })
 
