@@ -10,6 +10,7 @@ const { join } = require('path');
 const review = require('./models/review');
 const session = require('express-session');
 const flash = require('connect-flash')
+const passport = require('passport')
 
 const campgrounds = require('./routes/campgrounds');
 const reviews = require('./routes/reviews');
