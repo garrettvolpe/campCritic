@@ -32,7 +32,7 @@ async function seedImg() {
 
 const seedDB = async () => {
     await Campground.deleteMany({});
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 5; i++) {
         const placeSeed = Math.floor(Math.random() * places.length)
         const descriptorsSeed = Math.floor(Math.random() * descriptors.length)
         const citySeed = Math.floor(Math.random() * cities.length)
@@ -43,14 +43,22 @@ const seedDB = async () => {
         const camp = new Campground({
             imageUrl: await seedImg(),
             title: `${descriptors[descriptorsSeed]} ${places[placeSeed]}`,
-            image: 'https://placeimg.com/640/480/nature',
             author: '63a0e53024948d6b9452ff0b',
             location: `${cities[citySeed].city}, ${cities[citySeed].state}`,
             description:
                 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, nihil tempora vel aspernatur quod aliquam illum! Iste impedit odio esse neque veniam molestiae eligendi commodi minus, beatae accusantium, doloribus quo!',
-            price: price
-        })
-
+            price: price,
+            images: [
+                {
+                    url: 'https://res.cloudinary.com/djjaxwfvu/image/upload/v1671645294/CampCritic/odj6jb1vusazqbmrqic9.webp',
+                    filename: 'CampCritic/odj6jb1vusazqbmrqic9'
+                  },
+                  {
+                    url: 'https://res.cloudinary.com/djjaxwfvu/image/upload/v1671645294/CampCritic/ooonnoj7sz68o6g1gl1y.webp',
+                    filename: 'CampCritic/ooonnoj7sz68o6g1gl1y'
+                  }
+            ]
+        });
 
         await camp.save()
     }
