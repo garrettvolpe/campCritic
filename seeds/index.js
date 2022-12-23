@@ -45,6 +45,7 @@ const seedDB = async () => {
             title: `${descriptors[descriptorsSeed]} ${places[placeSeed]}`,
             author: '63a0e53024948d6b9452ff0b',
             location: `${cities[citySeed].city}, ${cities[citySeed].state}`,
+            geometry: { type: 'Point', coordinates: [ -72.690855, 41.764582 ] },
             description:
                 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, nihil tempora vel aspernatur quod aliquam illum! Iste impedit odio esse neque veniam molestiae eligendi commodi minus, beatae accusantium, doloribus quo!',
             price: price,
