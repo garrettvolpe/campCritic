@@ -1,23 +1,63 @@
-<% layout('layouts/boilerplate')%>
-    <div class="col-9 offset-1">
-        <h1 style="text-align: center;" class="mb-4">CampCritic!</h1>
-        <p>Welcome to <strong>"CampCritic"</strong>, your go-to source for honest and reliable reviews of campgrounds
-            from around the world. Whether you're an experienced camper or just starting out, our reviews will help you
-            find the perfect campground for your next outdoor adventure.
-        </p>
-        <p>At CampCritic, we believe that the great outdoors should be accessible to everyone, and that's why
-            we're dedicated to providing thorough and unbiased reviews of campgrounds from every corner of the globe. We
-            take the time to visit each campground in person and assess its facilities, location, and overall
-            atmosphere, so you can be sure you're getting the best possible information.</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CampCritic</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+        integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <link rel="stylesheet" href="/stylesheets/home.css">
+</head>
 
-        <p>Our team of dedicated reviewers have years of experience camping and hiking, and we've seen it all when it
-            comes to campgrounds. We know what makes a great campsite and what to look out for, and we're always on the
-            lookout for hidden gems and great value options.</p>
+<body class="d-flex text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="mb-auto">
+            <div>
+                <h3 class="float-md-left mb-0">CampCritic</h3>
+                <nav class="nav nav-masthead justify-content-center float-md-right">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link" href="/campgrounds">Campgrounds</a>
+                    <% if(!currentUser) { %>
+                    <a class="nav-link" href="/login">Login</a>
+                    <a class="nav-link" href="/register">Register</a>
+                    <% } else { %>
+                    <a class="nav-link" href="/logout">Logout</a>
+                    <% } %>
+                </nav>
+            </div>
+        </header>
+        <main class="px-3">
+            <h1 style="text-align: center;" class="mb-4">CampCritic!</h1>
+                <p>Welcome to <strong>"CampCritic"</strong>, your go-to source for honest and reliable reviews of campgrounds
+                    from around the world. Whether you're an experienced camper or just starting out, our reviews will help you
+                    find the perfect campground for your next outdoor adventure.
+                </p>
+                <p>At CampCritic, we believe that the great outdoors should be accessible to everyone, and that's why
+                    we're dedicated to providing thorough and unbiased reviews of campgrounds from every corner of the globe. We
+                    take the time to visit each campground in person and assess its facilities, location, and overall
+                    atmosphere, so you can be sure you're getting the best possible information.</p>
+        
+                <p> So whether you're planning a weekend getaway or a longer adventure, be sure to check out CampCritic
+                    for all the information you need to find the perfect campsite. Happy camping!</p>
+        
+                    <a href="/campgrounds" class="btn btn-lg btn-secondary font-weight-bold border-white bg-white">View
+                        Campgrounds</a>
+                </main>
 
-        <p> In addition to our expert reviews, we also offer a wide range of resources and tips to help you plan your
-            next camping trip. From advice on choosing the right gear to suggestions for fun activities, we're here to
-            help you make the most of your time in the great outdoors.</p>
+        <footer class="mt-auto text-white-50">
+            <p>&copy; 2022 </p>
+        </footer>
 
-        <p> So whether you're planning a weekend getaway or a longer adventure, be sure to check out CampCritic
-            for all the information you need to find the perfect campsite. Happy camping!</p>
+
     </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+        integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
