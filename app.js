@@ -25,6 +25,9 @@ const userRoutes = require('./routes/users');
 const campgroundsRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const dbURL = process.env.DB_URL;
+const dbSecret = process.env.DB_SECRET;
+const mongoDBStore = require('connect-mongo');
+
 
 
 mongoose.connect(dbURL, {
@@ -103,7 +106,19 @@ app.use(
     })
 );
 
+const store = new mongoDBStore({
+    mongoUrl: dbURL,
+    secret: dbSecret,
+    touchAfter: 24 * 60 * 60
+})
+
+store.on("error", function(e){
+console.log("session store error", e)
+})
+
+
 const sessionConfig = {
+    store, 
     name: 'sesID',
     secret: 'thisismysecret',
     resave: false,
