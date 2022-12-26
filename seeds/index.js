@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Campground = require('../models/campground');
 const cities = require('./cities')
 const axios = require('axios')
-const { places, descriptors } = require('./seedHelpers')
+const { places, descriptors, imagesForUpload } = require('./seedHelpers')
 
 mongoose.connect('mongodb+srv://garrett:WbPC3uL0rNRm0ltC@campgrounds.pcpwmwg.mongodb.net/campgrounds?retryWrites=true&w=majority', {
     useNewUrlParser: true,
@@ -34,6 +34,7 @@ const seedDB = async () => {
     await Campground.deleteMany({});
     for (let i = 0; i <100; i++) {
         const placeSeed = Math.floor(Math.random() * places.length)
+        const imageUploadSeed1 = Math.floor(Math.random() * imagesForUpload.length);
         const descriptorsSeed = Math.floor(Math.random() * descriptors.length)
         const citySeed = Math.floor(Math.random() * cities.length)
         const price = Math.floor(Math.random() * 20) + 10;
@@ -52,16 +53,7 @@ const seedDB = async () => {
             description:
                 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Debitis, nihil tempora vel aspernatur quod aliquam illum! Iste impedit odio esse neque veniam molestiae eligendi commodi minus, beatae accusantium, doloribus quo!',
             price: price,
-            images: [
-                {
-                    url: 'https://res.cloudinary.com/djjaxwfvu/image/upload/v1671645294/CampCritic/odj6jb1vusazqbmrqic9.webp',
-                    filename: 'CampCritic/odj6jb1vusazqbmrqic9'
-                  },
-                  {
-                    url: 'https://res.cloudinary.com/djjaxwfvu/image/upload/v1671645294/CampCritic/ooonnoj7sz68o6g1gl1y.webp',
-                    filename: 'CampCritic/ooonnoj7sz68o6g1gl1y'
-                  }
-            ]
+            images: imagesForUpload[imageUploadSeed1]
         });
 
         await camp.save()
