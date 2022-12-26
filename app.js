@@ -29,7 +29,7 @@ const mongoDBStore = require('connect-mongo');
 
 
 
-mongoose.connect(dbURL, {
+mongoose.connect('mongodb+srv://garrett:WbPC3uL0rNRm0ltC@campgrounds.pcpwmwg.mongodb.net/campgrounds?retryWrites=true&w=majority', {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
